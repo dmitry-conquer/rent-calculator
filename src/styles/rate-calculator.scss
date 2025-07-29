@@ -1,0 +1,49 @@
+@use "./helpers/" as *;
+
+$rental-blue: #1e3a8a;
+$rental-orange: #ea580c;
+$rental-gray: #f1f5f9;
+$rental-text: #0f172a;
+
+.rate-calculator {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 480px;
+  margin: 2rem auto;
+  font-family: "Segoe UI", sans-serif;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+
+    label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: $rental-blue;
+      margin-bottom: 0.4rem;
+    }
+
+    input {
+      padding: 0.6rem 0.8rem;
+      font-size: 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      background: $rental-gray;
+      color: $rental-text;
+      outline: none;
+      transition: border-color 0.2s ease;
+
+      &:focus {
+        border-color: $rental-orange;
+        background: #ffffff;
+      }
+
+      &::placeholder {
+        color: #94a3b8;
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home page</title>
+  </head>
+  <body data-smooth-scroll="true">
+    <div class="wrapper">
+      {{> header}}
+      <main>
+        <div class="rate-calculator" id="rate-calculator" data-overtime-limit="40" data-overtime-multiplayer="1.5">
+          <div class="rate-calculator__field">
+            <div class="rate-calculator__field">
+              <label for="pay-rate">Pay Rate</label>
+              <input type="number" name="pay-rate" min="0" id="pay-rate" placeholder="Enter here..." />
+            </div>
+            <div class="rate-calculator__field">
+              <label for="hours-worked">Number of Hours Worked</label>
+              <input type="number" name="hours-worked" min="0" id="hours-worked" placeholder="Enter here..." />
+            </div>
+            <div class="rate-calculator__field">
+              <label for="weekly-total">Weekly Total Before Taxes</label>
+              <input type="number" name="weekly-total" min="0" id="weekly-total" placeholder="Enter here..." />
+            </div>
+          </div>
+        </div>
+      </main>
+      {{> footer}}
+    </div>
+    <script type="module" src="/src/scripts/main.ts" defer></script>
+  </body>
+</html>
