@@ -63,7 +63,6 @@ export default class Calculator {
       input.disabled = true;
       input.classList.remove("highlight-result");
     });
-    resultField.disabled = true;
     resultField.classList.add("highlight-result");
   }
 
@@ -131,7 +130,7 @@ export default class Calculator {
             }
           });
         } else {
-          inputs.forEach(input => (input.disabled = false)); // якщо менше 2 – розблоковуємо все
+          inputs.forEach(input => (input.disabled = false));
         }
       });
     });
