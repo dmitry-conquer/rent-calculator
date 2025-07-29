@@ -46,4 +46,44 @@ $rental-text: #0f172a;
       }
     }
   }
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    column-gap: rem(10);
+  }
+  &__button {
+    background-color: $rental-orange;
+    color: #fff;
+    padding: rem(10) rem(20);
+    border-radius: rem(8);
+    &:disabled {
+      opacity: 0.5;
+    }
+
+    &--reset {
+      background-color: $rental-blue;
+    }
+  }
+}
+
+.highlight-result {
+  border: 2px solid #4caf50 !important;
+  background: #eaffea;
+  transition: all 0.3s ease;
+}
+
+#calculation-breakdown {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.breakdown-item {
+  margin-bottom: 4px;
+}
+
+.breakdown-total {
+  margin-top: 6px;
+  font-weight: bold;
+  font-size: 16px;
 }

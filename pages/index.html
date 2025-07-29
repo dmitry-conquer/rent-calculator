@@ -13,15 +13,21 @@
           <div class="rate-calculator__field">
             <div class="rate-calculator__field">
               <label for="pay-rate">Pay Rate</label>
-              <input type="number" name="pay-rate" min="0" id="pay-rate" placeholder="Enter here..." />
+              <input type="number" name="pay-rate" min="0" id="pay-rate" />
             </div>
             <div class="rate-calculator__field">
               <label for="hours-worked">Number of Hours Worked</label>
-              <input type="number" name="hours-worked" min="0" id="hours-worked" placeholder="Enter here..." />
+              <input type="number" name="hours-worked" min="0" id="hours-worked" />
             </div>
             <div class="rate-calculator__field">
               <label for="weekly-total">Weekly Total Before Taxes</label>
-              <input type="number" name="weekly-total" min="0" id="weekly-total" placeholder="Enter here..." />
+              <input type="number" name="weekly-total" min="0" id="weekly-total" />
+            </div>
+            <div class="rate-calculator__buttons">
+              <button type="button" id="calculate-btn" class="rate-calculator__button">Calculate</button>
+              <button type="button" id="reset-btn" class="rate-calculator__button rate-calculator__button--reset">
+                Reset
+              </button>
             </div>
           </div>
         </div>

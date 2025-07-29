@@ -3,52 +3,78 @@ export default class Calculator {
     rate: "pay-rate",
     hours: "hours-worked",
     total: "weekly-total",
+    button: "calculate-btn",
+    reset: "reset-btn",
   };
 
   private rateInput: HTMLInputElement | null;
   private hoursInput: HTMLInputElement | null;
   private totalInput: HTMLInputElement | null;
+  private calculateButton: HTMLButtonElement | null;
+  private resetButton: HTMLButtonElement | null;
   private OVERTIME_LIMIT: number;
   private OVERTIME_MULTIPLIER: number;
 
-  constructor(limit: number, multiplayer: number) {
+  constructor(limit: number, multiplier: number) {
     this.rateInput = document.getElementById(this.ids.rate) as HTMLInputElement | null;
     this.hoursInput = document.getElementById(this.ids.hours) as HTMLInputElement | null;
     this.totalInput = document.getElementById(this.ids.total) as HTMLInputElement | null;
+    this.calculateButton = document.getElementById(this.ids.button) as HTMLButtonElement | null;
+    this.resetButton = document.getElementById(this.ids.reset) as HTMLButtonElement | null;
     this.OVERTIME_LIMIT = limit;
-    this.OVERTIME_MULTIPLIER = multiplayer;
+    this.OVERTIME_MULTIPLIER = multiplier;
 
     if (!this.isReady()) return;
     this.init();
   }
 
   private isReady() {
-    return !!this.rateInput && !!this.hoursInput && !!this.totalInput;
+    return !!this.rateInput && !!this.hoursInput && !!this.totalInput && !!this.calculateButton && !!this.resetButton;
   }
 
   private calculate = () => {
-    const active = document.activeElement as HTMLInputElement | null;
-    if (active && active.value.trim() === "") {
-      [this.rateInput, this.hoursInput, this.totalInput].forEach(input => {
-        if (input !== active) input!.value = "";
-      });
+    const rate = parseFloat(this.rateInput!.value);
+    const hours = parseFloat(this.hoursInput!.value);
+    const total = parseFloat(this.totalInput!.value);
+
+    let calculatedField: HTMLInputElement | null = null;
+
+    if (this.isValid(rate) && this.isValid(hours)) {
+      this.totalInput!.value = this.calculateTotal(rate, hours).toFixed(2);
+      calculatedField = this.totalInput;
+    } else if (this.isValid(rate) && this.isValid(total)) {
+      this.hoursInput!.value = this.calculateHours(rate, total).toFixed(2);
+      calculatedField = this.hoursInput;
+    } else if (this.isValid(hours) && this.isValid(total)) {
+      this.rateInput!.value = this.calculateRate(hours, total).toFixed(2);
+      calculatedField = this.rateInput;
+    } else {
       return;
     }
 
-    const rate = Number(this.rateInput!.value);
-    const hours = Number(this.hoursInput!.value);
-    const total = Number(this.totalInput!.value);
-
-    if (this.isTotalCalculate(rate, hours)) {
-      this.totalInput!.value = this.calculateTotal(rate, hours).toFixed(0);
-    } else if (this.isHoursCalculate(rate, total)) {
-      this.hoursInput!.value = this.calculateHours(rate, total).toFixed(0);
-    } else if (this.isRateCalculate(hours, total)) {
-      this.rateInput!.value = this.calculateRate(hours, total).toFixed(0);
-    }
-
     this.clearZeros();
+    this.lockAllFields(calculatedField!);
+    this.calculateButton!.disabled = true;
   };
+
+  private lockAllFields(resultField: HTMLInputElement) {
+    [this.rateInput, this.hoursInput, this.totalInput].forEach(input => {
+      if (!input) return;
+      input.disabled = true;
+      input.classList.remove("highlight-result");
+    });
+    resultField.disabled = true;
+    resultField.classList.add("highlight-result");
+  }
+
+  private unlockAllFields() {
+    [this.rateInput, this.hoursInput, this.totalInput].forEach(input => {
+      if (!input) return;
+      input.disabled = false;
+      input.classList.remove("highlight-result");
+    });
+    this.calculateButton!.disabled = false;
+  }
 
   private calculateTotal(rate: number, hours: number): number {
     const regularHours = Math.min(hours, this.OVERTIME_LIMIT);
@@ -73,16 +99,6 @@ export default class Calculator {
     return total / (regularHours + overtimeHours * this.OVERTIME_MULTIPLIER);
   }
 
-  private isTotalCalculate(rate: number, hours: number) {
-    return this.isValid(rate) && this.isValid(hours) && document.activeElement !== this.totalInput;
-  }
-  private isHoursCalculate(rate: number, total: number) {
-    return this.isValid(rate) && this.isValid(total) && document.activeElement !== this.hoursInput;
-  }
-  private isRateCalculate(hours: number, total: number) {
-    return this.isValid(hours) && this.isValid(total) && document.activeElement !== this.rateInput;
-  }
-
   private isValid(value: number) {
     return !isNaN(value) && value > 0;
   }
@@ -95,23 +111,44 @@ export default class Calculator {
     });
   }
 
+  private reset = () => {
+    this.rateInput!.value = "";
+    this.hoursInput!.value = "";
+    this.totalInput!.value = "";
+    this.unlockAllFields();
+  };
+
+  private monitorInputs = () => {
+    const inputs = [this.rateInput!, this.hoursInput!, this.totalInput!];
+
+    inputs.forEach(currentInput => {
+      currentInput.addEventListener("input", () => {
+        const filledInputs = inputs.filter(input => input.value.trim() !== "");
+        if (filledInputs.length >= 2) {
+          inputs.forEach(input => {
+            if (!filledInputs.includes(input)) {
+              input.disabled = true;
+            }
+          });
+        } else {
+          inputs.forEach(input => (input.disabled = false)); // якщо менше 2 – розблоковуємо все
+        }
+      });
+    });
+  };
+
   private init() {
     [this.rateInput, this.hoursInput, this.totalInput].forEach(input => {
       if (!input) return;
-
-      input.addEventListener("input", (e: Event) => {
-        const target = e.target as HTMLInputElement;
-        if (Number(target.value) < 0) {
-          target.value = "";
-        }
-        this.calculate();
-      });
-
       input.addEventListener("keydown", (e: KeyboardEvent) => {
         if (e.key === "-" || e.key.toLowerCase() === "e") {
           e.preventDefault();
         }
       });
     });
+
+    this.calculateButton!.addEventListener("click", () => this.calculate());
+    this.resetButton!.addEventListener("click", () => this.reset());
+    this.monitorInputs();
   }
 }
