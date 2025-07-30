@@ -13,7 +13,7 @@ export default class Calculator {
   private totalInput: HTMLInputElement | null;
   private calculateButton: HTMLButtonElement | null;
   private resetButton: HTMLButtonElement | null;
-  private breakdownContainer: HTMLElement | null; // ✅ FIX: був HTMLButtonElement → тепер HTMLElement
+  private breakdownContainer: HTMLElement | null;
   private OVERTIME_LIMIT: number;
   private OVERTIME_MULTIPLIER: number;
 
@@ -23,7 +23,7 @@ export default class Calculator {
     this.totalInput = document.getElementById(this.ids.total) as HTMLInputElement | null;
     this.calculateButton = document.getElementById(this.ids.button) as HTMLButtonElement | null;
     this.resetButton = document.getElementById(this.ids.reset) as HTMLButtonElement | null;
-    this.breakdownContainer = document.getElementById(this.ids.breakdown) as HTMLElement | null; // ✅ FIX
+    this.breakdownContainer = document.getElementById(this.ids.breakdown) as HTMLElement | null;
     this.OVERTIME_LIMIT = limit;
     this.OVERTIME_MULTIPLIER = multiplier;
 
