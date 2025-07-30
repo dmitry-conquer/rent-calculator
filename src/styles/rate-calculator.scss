@@ -1,89 +1,167 @@
 @use "./helpers/" as *;
 
-$rental-blue: #1e3a8a;
-$rental-orange: #ea580c;
-$rental-gray: #f1f5f9;
-$rental-text: #0f172a;
-
+.rate-calculator-wrapper {
+  padding-top: fluid(60, 120);
+  padding-inline: rem(20);
+}
 .rate-calculator {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  max-width: rem(500);
+  margin: 0 auto;
+  padding: rem(20);
+  background: #fff;
   border-radius: 8px;
-  padding: 1.5rem;
-  max-width: 480px;
-  margin: 2rem auto;
-  font-family: "Segoe UI", sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: "Inter", Arial, sans-serif;
+  color: #1c1c1c;
 
   &__field {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
 
     label {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: $rental-blue;
-      margin-bottom: 0.4rem;
+      font-size: rem(14);
+      font-weight: 500;
+      color: #333;
+      margin-bottom: rem(6);
     }
 
     input {
-      padding: 0.6rem 0.8rem;
+      width: 100%;
+      padding: rem(10) rem(14);
       font-size: 1rem;
-      border: 1px solid #cbd5e1;
-      border-radius: 4px;
-      background: $rental-gray;
-      color: $rental-text;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      background: #fff;
       outline: none;
-      transition: border-color 0.2s ease;
 
       &:focus {
-        border-color: $rental-orange;
-        background: #ffffff;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
       }
 
-      &::placeholder {
-        color: #94a3b8;
+      &:disabled {
+        background: #f5f5f5;
+        color: #777;
+        cursor: not-allowed;
       }
     }
+
+    .highlight-result {
+      outline: 1px solid #22c55e !important;
+      background-color: #f0fff5 !important;
+      font-weight: bold;
+    }
   }
+
   &__buttons {
     display: flex;
-    justify-content: center;
-    column-gap: rem(10);
-  }
-  &__button {
-    background-color: $rental-orange;
-    color: #fff;
-    padding: rem(10) rem(20);
-    border-radius: rem(8);
-    &:disabled {
-      opacity: 0.5;
+    gap: rem(12);
+    margin-top: rem(12);
+
+    .rate-calculator__button {
+      flex: 1;
+      padding: rem(12);
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+
+      &:hover {
+        opacity: 0.95;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
     }
 
-    &--reset {
-      background-color: $rental-blue;
+    .rate-calculator__button {
+      background: #1e3a8a;
+      color: #fff;
     }
+
+    .rate-calculator__button--reset {
+      background: #f1f5f9;
+      color: #1c1c1c;
+      border: 1px solid #dcdcdc;
+
+      &:hover {
+        background: #e2e8f0;
+      }
+    }
+  }
+
+  &__breakdown {
+    overflow: hidden;
+    .rate-calculator__breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      padding: rem(12) 1rem;
+      font-size: rem(14);
+      border-bottom: 1px solid #e5e7eb;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+  &__breakdown-inner {
+   
+    overflow: hidden;
   }
 }
 
-.highlight-result {
-  outline: 2px solid #4caf50 !important;
-  background: #eaffea;
-  transition: all 0.3s ease;
-}
+.breakdown {
+  margin-top: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #f9fafb;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
 
-#calculation-breakdown {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #333;
-}
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #fff;
+  }
 
-.breakdown-item {
-  margin-bottom: 4px;
-}
+  &__section {
+    padding: rem(12) 1rem;
+  }
 
-.breakdown-total {
-  margin-top: 6px;
-  font-weight: bold;
-  font-size: 16px;
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: rem(6);
+    font-size: rem(14);
+    color: #374151;
+
+    span {
+      color: #6b7280;
+    }
+
+    strong {
+      font-weight: 600;
+      color: #111827;
+    }
+  }
+
+  &__footer {
+    padding: rem(12) 1rem;
+    border-top: 1px solid #e5e7eb;
+    background: #fff;
+
+    .total {
+      font-weight: 600;
+      font-size: rem(15);
+    }
+  }
 }
