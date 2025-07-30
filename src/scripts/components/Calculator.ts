@@ -110,13 +110,13 @@ export default class Calculator {
             <span>Regular Pay:</span>
             <strong>$${regularTotal.toFixed(2)}</strong>
           </div>
+           <div class="breakdown__row">
+            <span>Overtime Rate:</span>
+            <strong>$${overtimeHours > 0 ? overtimeRate.toFixed(2) : "0.00"}</strong>
+          </div>
           <div class="breakdown__row">
             <span>Overtime Hours:</span>
             <strong>${overtimeHours.toFixed(2)}h</strong>
-          </div>
-          <div class="breakdown__row">
-            <span>Overtime Rate:</span>
-            <strong>$${overtimeHours > 0 ? overtimeRate.toFixed(2) : "0.00"}</strong>
           </div>
           <div class="breakdown__row">
             <span>Overtime Pay:</span>
