@@ -13,7 +13,7 @@ export default class Calculator {
   private totalInput: HTMLInputElement | null;
   private calculateButton: HTMLButtonElement | null;
   private resetButton: HTMLButtonElement | null;
-  private breakdownContainer: HTMLElement | null;
+  private breakdownContainer: HTMLElement | null; // ✅ FIX: був HTMLButtonElement → тепер HTMLElement
   private OVERTIME_LIMIT: number;
   private OVERTIME_MULTIPLIER: number;
 
@@ -23,7 +23,7 @@ export default class Calculator {
     this.totalInput = document.getElementById(this.ids.total) as HTMLInputElement | null;
     this.calculateButton = document.getElementById(this.ids.button) as HTMLButtonElement | null;
     this.resetButton = document.getElementById(this.ids.reset) as HTMLButtonElement | null;
-    this.breakdownContainer = document.getElementById(this.ids.breakdown) as HTMLButtonElement | null;
+    this.breakdownContainer = document.getElementById(this.ids.breakdown) as HTMLElement | null; // ✅ FIX
     this.OVERTIME_LIMIT = limit;
     this.OVERTIME_MULTIPLIER = multiplier;
 
@@ -50,21 +50,21 @@ export default class Calculator {
     let calculatedField: HTMLInputElement | null = null;
 
     if (this.isValid(rate) && this.isValid(hours)) {
-      const { regularTotal, overtimeTotal } = this.calculateTotal(rate, hours);
+      const { regularTotal, overtimeTotal, overtimeRate } = this.calculateTotal(rate, hours);
       this.totalInput!.value = (regularTotal + overtimeTotal).toFixed(2);
-      this.renderBreakdown(regularTotal, overtimeTotal);
+      this.renderBreakdown(rate, hours, regularTotal, overtimeRate, overtimeTotal);
       calculatedField = this.totalInput;
     } else if (this.isValid(rate) && this.isValid(total)) {
       const calculatedHours = this.calculateHours(rate, total);
       this.hoursInput!.value = calculatedHours.toFixed(2);
-      const { regularTotal, overtimeTotal } = this.calculateTotal(rate, calculatedHours);
-      this.renderBreakdown(regularTotal, overtimeTotal);
+      const { regularTotal, overtimeTotal, overtimeRate } = this.calculateTotal(rate, calculatedHours);
+      this.renderBreakdown(rate, calculatedHours, regularTotal, overtimeRate, overtimeTotal);
       calculatedField = this.hoursInput;
     } else if (this.isValid(hours) && this.isValid(total)) {
       const calculatedRate = this.calculateRate(hours, total);
       this.rateInput!.value = calculatedRate.toFixed(2);
-      const { regularTotal, overtimeTotal } = this.calculateTotal(calculatedRate, hours);
-      this.renderBreakdown(regularTotal, overtimeTotal);
+      const { regularTotal, overtimeTotal, overtimeRate } = this.calculateTotal(calculatedRate, hours);
+      this.renderBreakdown(calculatedRate, hours, regularTotal, overtimeRate, overtimeTotal);
       calculatedField = this.rateInput;
     } else {
       return;
@@ -84,54 +84,57 @@ export default class Calculator {
     resultField.classList.add("highlight-result");
   }
 
-  private renderBreakdown(regularTotal: number, overtimeTotal: number) {
-    const rate = parseFloat(this.rateInput!.value);
-    const hours = parseFloat(this.hoursInput!.value);
-    const total = parseFloat(this.totalInput!.value);
-
+  private renderBreakdown(
+    rate: number,
+    hours: number,
+    regularTotal: number,
+    overtimeRate: number,
+    overtimeTotal: number
+  ) {
     const regularHours = Math.min(hours, this.OVERTIME_LIMIT);
     const overtimeHours = Math.max(hours - this.OVERTIME_LIMIT, 0);
+    const total = regularTotal + overtimeTotal;
 
     this.breakdownContainer!.innerHTML = `
-    <div class="breakdown">
-      <div class="breakdown__section">
-        <div class="breakdown__row">
-          <span>Pay Rate:</span>
-          <strong>$${rate.toFixed(2)}</strong>
+      <div class="breakdown">
+        <div class="breakdown__section">
+          <div class="breakdown__row">
+            <span>Pay Rate:</span>
+            <strong>$${rate.toFixed(2)}</strong>
+          </div>
+          <div class="breakdown__row">
+            <span>Regular Hours:</span>
+            <strong>${regularHours.toFixed(2)}h</strong>
+          </div>
+          <div class="breakdown__row">
+            <span>Regular Pay:</span>
+            <strong>$${regularTotal.toFixed(2)}</strong>
+          </div>
+          <div class="breakdown__row">
+            <span>Overtime Hours:</span>
+            <strong>${overtimeHours.toFixed(2)}h</strong>
+          </div>
+          <div class="breakdown__row">
+            <span>Overtime Rate:</span>
+            <strong>$${overtimeHours > 0 ? overtimeRate.toFixed(2) : "0.00"}</strong>
+          </div>
+          <div class="breakdown__row">
+            <span>Overtime Pay:</span>
+            <strong>$${overtimeTotal.toFixed(2)}</strong>
+          </div>
         </div>
-        <div class="breakdown__row">
-          <span>Regular Hours:</span>
-          <strong>${regularHours.toFixed(2)}h</strong>
-        </div>
-        <div class="breakdown__row">
-          <span>Regular Pay:</span>
-          <strong>$${regularTotal.toFixed(2)}</strong>
-        </div>
-        <div class="breakdown__row">
-          <span>Overtime Hours:</span>
-          <strong>${overtimeHours.toFixed(2)}h</strong>
-        </div>
-        <div class="breakdown__row">
-          <span>Overtime Rate:</span>
-          <strong>$${overtimeHours > 0 ? (rate * this.OVERTIME_MULTIPLIER).toFixed(2) : "0.00"}</strong>
-        </div>
-        <div class="breakdown__row">
-          <span>Overtime Pay:</span>
-          <strong>$${overtimeTotal.toFixed(2)}</strong>
+        <div class="breakdown__footer">
+          <div class="breakdown__row total">
+            <span>Total Hours Worked:</span>
+            <strong>${hours.toFixed(2)}h</strong>
+          </div>
+          <div class="breakdown__row total">
+            <span>Weekly Total:</span>
+            <strong>$${total.toFixed(2)}</strong>
+          </div>
         </div>
       </div>
-      <div class="breakdown__footer">
-        <div class="breakdown__row total">
-          <span>Total Hours Worked:</span>
-          <strong>${hours.toFixed(2)}h</strong>
-        </div>
-        <div class="breakdown__row total">
-          <span>Weekly Total:</span>
-          <strong>$${total.toFixed(2)}</strong>
-        </div>
-      </div>
-    </div>
-  `;
+    `;
   }
 
   private unlockAllFields() {
@@ -147,9 +150,10 @@ export default class Calculator {
     const regularHours = Math.min(hours, this.OVERTIME_LIMIT);
     const overtimeHours = Math.max(hours - this.OVERTIME_LIMIT, 0);
     const regularTotal = regularHours * rate;
-    const overtimeTotal = overtimeHours * rate * this.OVERTIME_MULTIPLIER;
+    const overtimeRate = rate * this.OVERTIME_MULTIPLIER;
+    const overtimeTotal = overtimeHours * overtimeRate;
 
-    return { regularTotal, overtimeTotal };
+    return { regularTotal, overtimeTotal, overtimeRate };
   }
 
   private calculateHours(rate: number, total: number): number {
@@ -194,16 +198,10 @@ export default class Calculator {
 
     inputs.forEach(currentInput => {
       currentInput.addEventListener("input", () => {
-        const filledInputs = inputs.filter(input => input.value.trim() !== "");
-        if (filledInputs.length >= 2) {
-          inputs.forEach(input => {
-            if (!filledInputs.includes(input)) {
-              input.disabled = true;
-            }
-          });
-        } else {
-          inputs.forEach(input => (input.disabled = false));
-        }
+        const filled = inputs.filter(input => input.value.trim() !== "");
+        inputs.forEach(input => {
+          input.disabled = filled.length >= 2 && !filled.includes(input);
+        });
       });
     });
   };
@@ -215,6 +213,10 @@ export default class Calculator {
         if (e.key === "-" || e.key.toLowerCase() === "e") {
           e.preventDefault();
         }
+      });
+
+      input.addEventListener("input", () => {
+        if (input.disabled) this.reset();
       });
     });
 
