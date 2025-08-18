@@ -99,27 +99,27 @@ export default class Calculator {
       <div class="breakdown">
         <div class="breakdown__section">
           <div class="breakdown__row">
-            <span>Pay Rate:</span>
+            <span>Pay Rate ($/hour):</span>
             <strong>$${rate.toFixed(2)}</strong>
           </div>
           <div class="breakdown__row">
-            <span>Regular Hours:</span>
+            <span>Hours Worked (weekly):</span>
             <strong>${regularHours.toFixed(2)}h</strong>
           </div>
           <div class="breakdown__row">
-            <span>Regular Pay:</span>
+            <span>Weekly Total Before Taxes ($):</span>
             <strong>$${regularTotal.toFixed(2)}</strong>
           </div>
            <div class="breakdown__row">
-            <span>Overtime Rate:</span>
+            <span>Overtime Pay Rate ($/hour):</span>
             <strong>$${overtimeHours > 0 ? overtimeRate.toFixed(2) : "0.00"}</strong>
           </div>
           <div class="breakdown__row">
-            <span>Overtime Hours:</span>
+            <span>Overtime Hours Worked (weekly):</span>
             <strong>${overtimeHours.toFixed(2)}h</strong>
           </div>
           <div class="breakdown__row">
-            <span>Overtime Pay:</span>
+            <span>Overtime Weekly Total Before Taxes ($):</span>
             <strong>$${overtimeTotal.toFixed(2)}</strong>
           </div>
         </div>
