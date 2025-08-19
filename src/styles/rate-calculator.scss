@@ -8,6 +8,16 @@
 
   padding: fluid(40, 60) rem(20) fluid(60, 130) rem(20);
 
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
   &__bg {
     background-position: center;
     background-size: cover;
