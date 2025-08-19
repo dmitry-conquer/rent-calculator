@@ -1,13 +1,27 @@
 @use "./helpers/" as *;
 
-.rate-calculator-wrapper {
+.rate-calculator-page {
   --accent-color: #ff8500;
   --accent-color-light: #fffac7;
   --secondary-color: #00a0d1;
   --grey-color: #e5e7eb;
 
-  padding-top: fluid(40, 60);
-  padding-inline: rem(20);
+  padding: fluid(40, 60) rem(20) fluid(60, 130) rem(20);
+
+  &__bg {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: rem(544);
+    z-index: -1;
+  }
+}
+
+.rate-calculator-wrapper {
 }
 .rate-calculator {
   max-width: rem(640);
@@ -115,6 +129,7 @@
       font-weight: 700;
       line-height: 1.2;
       text-transform: uppercase;
+      transition: none !important;
 
       &:disabled {
         background-color: #fff;
@@ -138,7 +153,7 @@
     }
 
     .rate-calculator__button {
-      background-color: var(--accent-color);
+      background-color: var(--secondary-color);
       color: #fff;
       flex: 1;
       padding: rem(12);
@@ -195,7 +210,10 @@
   }
 
   &__footer {
-    margin-top: fluid(24, 40);
+    margin-top: fluid(20, 30);
+    padding-top: fluid(20, 30);
+    border-top: 1px solid #e5e7eb;
+
     display: flex;
     flex-direction: column;
     row-gap: fluid(12, 24);
@@ -252,10 +270,13 @@
   &__row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: rem(8);
     font-size: rem(14);
     color: #374151;
     column-gap: rem(12);
+
+    &:not(:last-child) {
+      margin-bottom: rem(8);
+    }
 
     span {
       color: #6b7280;

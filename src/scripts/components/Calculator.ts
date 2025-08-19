@@ -125,11 +125,11 @@ export default class Calculator {
         </div>
         <div class="breakdown__footer">
           <div class="breakdown__row total">
-            <span>Total Hours Worked:</span>
+            <span>Total Hours Worked (weekly):</span>
             <strong>${hours.toFixed(2)}h</strong>
           </div>
           <div class="breakdown__row total">
-            <span>Weekly Total:</span>
+            <span>Weekly Total Before Taxes ($):</span>
             <strong>$${total.toFixed(2)}</strong>
           </div>
         </div>
@@ -199,6 +199,7 @@ export default class Calculator {
     inputs.forEach(currentInput => {
       currentInput.addEventListener("input", () => {
         const filled = inputs.filter(input => input.value.trim() !== "");
+
         inputs.forEach(input => {
           input.disabled = filled.length >= 2 && !filled.includes(input);
         });

@@ -16,53 +16,56 @@
     <div class="wrapper">
       {{> header}}
       <main>
-        <div class="rate-calculator-wrapper">
-          <div class="rate-calculator" id="rate-calculator" data-overtime-limit="40" data-overtime-multiplayer="1.5">
-            <div class="rate-calculator__header">
-              <div class="rate-calculator__title-wrapper">
-                <h1 class="rate-calculator__title">Estimate Your Earnings</h1>
-              </div>
-              <p class="rate-calculator__description">
-                Curious about your weekly pay? Enter your hourly rate and the number of hours to see your estimated
-                total before taxes.
-              </p>
-            </div>
-            <div class="rate-calculator__body">
-              <div class="rate-calculator__fields">
-                <div class="rate-calculator__field">
-                  <label for="pay-rate"><span>Pay Rate ($/hour)</span> </label>
-                  <input type="number" name="pay-rate" min="0" id="pay-rate" />
+        <div class="rate-calculator-page">
+          <span class="rate-calculator-page__bg" style="background-image: url('/images/bg.webp')"></span>
+          <div class="rate-calculator-wrapper">
+            <div class="rate-calculator" id="rate-calculator" data-overtime-limit="40" data-overtime-multiplayer="1.5">
+              <div class="rate-calculator__header">
+                <div class="rate-calculator__title-wrapper">
+                  <h1 class="rate-calculator__title">Estimate Your Earnings</h1>
                 </div>
-                <div class="rate-calculator__field">
-                  <label for="hours-worked"
-                    ><span>Hours Worked (weekly)</span>
-                    <span
-                      >Anything over 40 hours/week is considered overtime and paid at 1.5x the regular hourly
-                      rate.</span
-                    ></label
-                  >
-                  <input type="number" name="hours-worked" min="0" id="hours-worked" />
+                <p class="rate-calculator__description">
+                  Curious about your weekly pay? Enter your hourly rate and the number of hours to see your estimated
+                  total before taxes.
+                </p>
+              </div>
+              <div class="rate-calculator__body">
+                <div class="rate-calculator__fields">
+                  <div class="rate-calculator__field">
+                    <label for="pay-rate"><span>Pay Rate ($/hour)</span> </label>
+                    <input type="number" name="pay-rate" min="0" id="pay-rate" />
+                  </div>
+                  <div class="rate-calculator__field">
+                    <label for="hours-worked"
+                      ><span>Hours Worked (weekly)</span>
+                      <span
+                        >Anything over 40 hours/week is considered overtime and paid at 1.5x the regular hourly
+                        rate.</span
+                      ></label
+                    >
+                    <input type="number" name="hours-worked" min="0" id="hours-worked" />
+                  </div>
+                  <div class="rate-calculator__field">
+                    <label for="weekly-total">Weekly Total Before Taxes ($)</label>
+                    <input type="number" name="weekly-total" min="0" id="weekly-total" />
+                  </div>
                 </div>
-                <div class="rate-calculator__field">
-                  <label for="weekly-total">Weekly Total Before Taxes ($)</label>
-                  <input type="number" name="weekly-total" min="0" id="weekly-total" />
+                <div class="rate-calculator__breakdown" id="breakdown-container">
+                  <div class="rate-calculator__breakdown-inner" id="breakdown-container"></div>
+                </div>
+                <div class="rate-calculator__buttons">
+                  <button type="button" id="calculate-btn" class="rate-calculator__button">Estimate</button>
+                  <button type="button" id="reset-btn" class="rate-calculator__button rate-calculator__button--reset">
+                    Clear
+                  </button>
                 </div>
               </div>
-              <div class="rate-calculator__breakdown" id="breakdown-container">
-                <div class="rate-calculator__breakdown-inner" id="breakdown-container"></div>
+              <div class="rate-calculator__footer">
+                <a href="tel:+1234567890" class="rate-calculator__footer-button">CALL now</a>
+                <p class="rate-calculator__footer-text">
+                  If your estimate looks different from what you’re currently earning, give us a call.
+                </p>
               </div>
-              <div class="rate-calculator__buttons">
-                <button type="button" id="calculate-btn" class="rate-calculator__button">Calculate</button>
-                <button type="button" id="reset-btn" class="rate-calculator__button rate-calculator__button--reset">
-                  Reset
-                </button>
-              </div>
-            </div>
-            <div class="rate-calculator__footer">
-              <a href="tel:+1234567890" class="rate-calculator__footer-button">CALL now</a>
-              <p class="rate-calculator__footer-text">
-                If your estimate looks different from what you’re currently earning, give us a call.
-              </p>
             </div>
           </div>
         </div>
