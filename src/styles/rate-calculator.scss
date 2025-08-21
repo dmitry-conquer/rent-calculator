@@ -242,6 +242,11 @@
       @include hover {
         opacity: 0.8;
       }
+      &--teal {
+        background-color: var(--secondary-color);
+        text-transform: none;
+        font-size: fluid(18, 24);
+      }
     }
 
     &-text {
@@ -298,7 +303,10 @@
       color: #111827;
     }
   }
-
+  &__highlight {
+    background-color: var(--accent-color-light);
+    padding-inline: rem(2);
+  }
   &__footer {
     padding: rem(12) 1rem;
     border-top: 1px solid #e5e7eb;

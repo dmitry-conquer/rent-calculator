@@ -98,29 +98,31 @@ export default class Calculator {
     this.breakdownContainer!.innerHTML = `
       <div class="breakdown">
         <div class="breakdown__section">
-          <div class="breakdown__row">
-            <span>Pay Rate ($/hour):</span>
-            <strong>$${rate.toFixed(2)}</strong>
-          </div>
+         
           <div class="breakdown__row">
             <span>Hours Worked (weekly):</span>
             <strong>${regularHours.toFixed(2)}h</strong>
           </div>
           <div class="breakdown__row">
-            <span>Weekly Total Before Taxes ($):</span>
-            <strong>$${regularTotal.toFixed(2)}</strong>
+            <span>Pay Rate ($/hour):</span>
+            <strong>$${rate.toFixed(2)}</strong>
           </div>
-           <div class="breakdown__row">
-            <span>Overtime Pay Rate ($/hour):</span>
-            <strong>$${overtimeHours > 0 ? overtimeRate.toFixed(2) : "0.00"}</strong>
+          <div class="breakdown__row">
+           <span></span>
+            <strong class="breakdown__highlight">$${regularTotal.toFixed(2)}</strong>
           </div>
           <div class="breakdown__row">
             <span>Overtime Hours Worked (weekly):</span>
             <strong>${overtimeHours.toFixed(2)}h</strong>
           </div>
+           <div class="breakdown__row">
+            <span>Overtime Pay Rate ($/hour):</span>
+            <strong>$${overtimeHours > 0 ? overtimeRate.toFixed(2) : "0.00"}</strong>
+          </div>
+         
           <div class="breakdown__row">
-            <span>Overtime Weekly Total Before Taxes ($):</span>
-            <strong>$${overtimeTotal.toFixed(2)}</strong>
+            <span></span>
+            <strong class="breakdown__highlight">$${overtimeTotal.toFixed(2)}</strong>
           </div>
         </div>
         <div class="breakdown__footer">
@@ -130,7 +132,7 @@ export default class Calculator {
           </div>
           <div class="breakdown__row total">
             <span>Weekly Total Before Taxes ($):</span>
-            <strong>$${total.toFixed(2)}</strong>
+            <strong class="breakdown__highlight">$${total.toFixed(2)}</strong>
           </div>
         </div>
       </div>
