@@ -17,7 +17,7 @@
       {{> header}}
       <main>
         <div class="rate-calculator-page">
-          <span class="rate-calculator-page__bg" style="background-image: url('/images/bg.webp')"></span>
+          <span class="rate-calculator-page__bg" style="background-image: url(&quot;/images/bg.webp&quot;)"></span>
           <div class="rate-calculator-wrapper">
             <div class="rate-calculator" id="rate-calculator" data-overtime-limit="40" data-overtime-multiplayer="1.5">
               <div class="rate-calculator__header">
@@ -54,14 +54,16 @@
                   <div class="rate-calculator__breakdown-inner" id="breakdown-container"></div>
                 </div>
                 <div class="rate-calculator__buttons">
-                  <button type="button" id="calculate-btn" class="rate-calculator__button">Estimate</button>
                   <button type="button" id="reset-btn" class="rate-calculator__button rate-calculator__button--reset">
                     Clear
                   </button>
+                  <button type="button" id="calculate-btn" class="rate-calculator__button">Estimate</button>
                 </div>
               </div>
               <div class="rate-calculator__footer">
-                <a href="tel:+1234567890" class="rate-calculator__footer-button rate-calculator__footer-button--teal">Click to get a quote from Stay at Home</a>
+                <a href="tel:+1234567890" class="rate-calculator__footer-button rate-calculator__footer-button--teal"
+                  >Click to get a quote from Stay at Home</a
+                >
                 <a href="tel:+1234567890" class="rate-calculator__footer-button">CALL now</a>
                 <p class="rate-calculator__footer-text">
                   If your estimate looks different from what you’re currently earning, give us a call.

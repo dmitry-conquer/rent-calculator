@@ -4,6 +4,7 @@
   --accent-color: #ff8500;
   --accent-color-light: #fffac7;
   --secondary-color: #00a0d1;
+  --success-color: #00d11c;
   --grey-color: #e5e7eb;
 
   padding: fluid(40, 60) rem(20) fluid(60, 130) rem(20);
@@ -163,11 +164,11 @@
     }
 
     .rate-calculator__button {
-      background-color: var(--secondary-color);
+      background-color: var(--success-color);
       color: #fff;
       flex: 1;
-      padding: rem(12);
-      font-size: 1rem;
+      padding: rem(10);
+      font-size: fluid(20, 28);
       font-weight: 600;
       border-radius: 6px;
       border: none;
@@ -194,6 +195,7 @@
     .rate-calculator__button--reset {
       background-color: var(--grey-color);
       color: #1c1c1c;
+      font-size: 1rem;
 
       &:hover {
         background: #e2e8f0;
