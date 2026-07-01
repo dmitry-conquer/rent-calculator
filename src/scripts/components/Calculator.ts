@@ -94,6 +94,7 @@ export default class Calculator {
     const regularHours = Math.min(hours, this.OVERTIME_LIMIT);
     const overtimeHours = Math.max(hours - this.OVERTIME_LIMIT, 0);
     const total = regularTotal + overtimeTotal;
+    const averagePayRate = total / hours;
 
     this.breakdownContainer!.innerHTML = `
       <div class="breakdown">
@@ -133,6 +134,10 @@ export default class Calculator {
           <div class="breakdown__row total">
             <span>Weekly Total Before Taxes ($):</span>
             <strong class="breakdown__highlight">$${total.toFixed(2)}</strong>
+          </div>
+          <div class="breakdown__row total">
+            <span>Average Pay Rate:</span>
+            <strong class="breakdown__highlight">$${averagePayRate.toFixed(2)}/hour</strong>
           </div>
         </div>
       </div>
